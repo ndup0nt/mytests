@@ -23,6 +23,7 @@
  */
 package com.silverpeas.components.mytests.servlets;
 
+import com.silverpeas.components.mytests.MyTestsService;
 import com.silverpeas.components.mytests.control.MyTestsSessionController;
 import com.stratelia.silverpeas.peasCore.ComponentContext;
 import com.stratelia.silverpeas.peasCore.ComponentSessionController;
@@ -101,6 +102,8 @@ public class MyTestsRequestRouter extends ComponentRequestRouter {
         request.setAttribute("userDetail", userDetail);
         request.setAttribute("userRoles", userRoles);
         request.setAttribute("action", function);
+
+        request.setAttribute("myContacts", MyTestsService.getInstance().getMyContacts());
 
         SilverTrace.info("mytests", "MyTestsRequestRouter.getDestination()",
                 "root.MSG_GEN_PARAM_VALUE", "Destination=" + destination);

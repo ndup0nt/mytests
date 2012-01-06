@@ -28,12 +28,12 @@
     xsi:schemaLocation="http://silverpeas.org/xml/ns/component http://www.silverpeas.org/xsd/component.xsd">
   <name>mytests</name>
   <label>
-    <message lang="fr">mytests</message>
+    <message lang="fr">MesTests</message>
     <message lang="en">mytests</message>
     <message lang="de">mytests</message>
   </label>
     <description>
-    <message lang="fr">mytests</message>
+    <message lang="fr">CeciEstMesTests</message>
     <message lang="en">mytests</message>
     <message lang="de">mytests</message>
   </description>

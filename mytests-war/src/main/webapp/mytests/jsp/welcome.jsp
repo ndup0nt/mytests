@@ -46,8 +46,7 @@
 <view:window>
     <%@ include file="include/tabs.jsp" %>
     <view:frame>
-        ${requestScope.userDetail.firstName}, <fmt:message
-            key="mytests.welcome"/>.
+        ${requestScope.userDetail.firstName}, <fmt:message key="mytests.welcome"/>.
         Vous avez les droits suivants :
         <c:forEach var="role" items="${requestScope.userRoles}">${role},</c:forEach>
     </view:frame>
