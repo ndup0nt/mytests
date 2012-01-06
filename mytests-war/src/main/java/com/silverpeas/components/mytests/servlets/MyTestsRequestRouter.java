@@ -23,6 +23,11 @@
  */
 package com.silverpeas.components.mytests.servlets;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.silverpeas.components.mytests.MyTestsService;
 import com.silverpeas.components.mytests.control.MyTestsSessionController;
 import com.stratelia.silverpeas.peasCore.ComponentContext;
@@ -32,10 +37,6 @@ import com.stratelia.silverpeas.peasCore.servlets.ComponentRequestRouter;
 import com.stratelia.silverpeas.silvertrace.SilverTrace;
 import com.stratelia.webactiv.beans.admin.UserDetail;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-
 public class MyTestsRequestRouter extends ComponentRequestRouter {
     private final Map<String, String> viewMappings = new HashMap<String, String>();
 
@@ -43,6 +44,7 @@ public class MyTestsRequestRouter extends ComponentRequestRouter {
         super();
         viewMappings.put("Main", "welcome.jsp");
         viewMappings.put("MyContacts", "mycontacts.jsp");
+        viewMappings.put("CreateContact", "newContact.jsp");
     }
 
     /**

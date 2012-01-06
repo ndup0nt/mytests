@@ -22,6 +22,8 @@ public class MyTestsService {
 
     private MyTestsService() {
     }
+    
+    private String toto;
 
     public List<Contact> getMyContacts(){
         List<Contact> res = new ArrayList<Contact>();

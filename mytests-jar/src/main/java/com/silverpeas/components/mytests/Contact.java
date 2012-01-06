@@ -11,6 +11,8 @@ public class Contact {
     private String firstName;
     private String lastName;
     private String service;
+    
+    private String toto;
 
     public Contact() {
     }

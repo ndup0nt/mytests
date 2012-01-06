@@ -30,8 +30,6 @@
   <servlet>
     <servlet-name>MyTestsRequestRouter</servlet-name>
     <servlet-class>com.silverpeas.components.mytests.servlets.MyTestsRequestRouter</servlet-class>
-    <description>no description</description>
-    <display-name>MyTestsRequestRouter</display-name>
   </servlet>
   <servlet-mapping>
     <servlet-name>MyTestsRequestRouter</servlet-name>

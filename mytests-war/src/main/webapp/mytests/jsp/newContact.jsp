@@ -39,39 +39,13 @@
 <body bgcolor="#ffffff" leftmargin="5" topmargin="5" marginwidth="5"
 	marginheight="5">
 	<c:set var="browseBarTitle">
-	    <fmt:message key="mytests.browseBar.mycontacts"/>
+	    <fmt:message key="mytests.browseBar.newcontact"/>
 	</c:set>
 	<view:browseBar path="${browseBarTitle}"/>
-	<c:set var="createContactIcon"><fmt:message key="mytests.createContact" bundle="${icons}"/></c:set>
-	<c:set var="createContactText"><fmt:message key="mytests.createContact.altText"/></c:set>
-	<view:operationPane>
-		<view:operation
-			action="CreateContact" 
-			icon="${createContactIcon}"
-			altText="${createContactText}" />
-	</view:operationPane>
-
 	<view:window>
 		<%@ include file="include/tabs.jsp"%>
 		<view:frame>
-			icone : ${createContactIcon}
-			<view:arrayPane title="Liste des contacts personnels"
-				var="myContactsTable">
-				<view:arrayColumn title="Nom" />
-				<view:arrayColumn title="Prénom" />
-				<view:arrayColumn title="Service" />
-				<c:forEach items="${requestScope.myContacts}" var="myContact">
-					<%--<c:url var="displayContact" value="/Rmytests/${componentId}/ViewContact"> --%>
-					<%--<c:param name="contactId" value="${myContact.id}"/> --%>
-					<%--</c:url> --%>
-					<view:arrayLine>
-						<c:set var="col1"><a href="toto">${myContact.lastName}</a></c:set>
-						<view:arrayCellText text="${col1}" />
-						<view:arrayCellText text="${myContact.firstName}" />
-						<view:arrayCellText text="${myContact.service}" />
-					</view:arrayLine>
-				</c:forEach>
-			</view:arrayPane>
+			TODO - formulaire de création d'un compte
 		</view:frame>
 	</view:window>
 </body>
