@@ -1,0 +1,1 @@
+DROP table sc_mytests_contact; 
