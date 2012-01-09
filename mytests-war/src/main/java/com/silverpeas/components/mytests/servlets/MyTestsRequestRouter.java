@@ -28,23 +28,29 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.silverpeas.components.mytests.MyTestsService;
+import com.silverpeas.components.mytests.control.ActionControllerSupport;
+import com.silverpeas.components.mytests.control.CreateContactController;
+import com.silverpeas.components.mytests.control.MyContactsController;
+import com.silverpeas.components.mytests.control.MyTestsMainController;
 import com.silverpeas.components.mytests.control.MyTestsSessionController;
+import com.silverpeas.components.mytests.control.SaveContactController;
 import com.stratelia.silverpeas.peasCore.ComponentContext;
 import com.stratelia.silverpeas.peasCore.ComponentSessionController;
 import com.stratelia.silverpeas.peasCore.MainSessionController;
 import com.stratelia.silverpeas.peasCore.servlets.ComponentRequestRouter;
 import com.stratelia.silverpeas.silvertrace.SilverTrace;
-import com.stratelia.webactiv.beans.admin.UserDetail;
 
 public class MyTestsRequestRouter extends ComponentRequestRouter {
-    private final Map<String, String> viewMappings = new HashMap<String, String>();
+	private static final long serialVersionUID = 2306409242623119934L;
+	
+	private final Map<String, ActionControllerSupport> viewMappings = new HashMap<String, ActionControllerSupport>();
 
     public MyTestsRequestRouter() {
         super();
-        viewMappings.put("Main", "welcome.jsp");
-        viewMappings.put("MyContacts", "mycontacts.jsp");
-        viewMappings.put("CreateContact", "newContact.jsp");
+        viewMappings.put("Main", new MyTestsMainController());
+        viewMappings.put("MyContacts", new MyContactsController());
+        viewMappings.put("CreateContact", new CreateContactController());
+        viewMappings.put("SaveContact", new SaveContactController());
     }
 
     /**
@@ -90,7 +96,19 @@ public class MyTestsRequestRouter extends ComponentRequestRouter {
                 + " Function=" + function);
         try {
             if (viewMappings.containsKey(function)) {
-                destination = "/mytests/jsp/" + viewMappings.get(function);
+            	ActionControllerSupport actionController = viewMappings.get(function);
+            	actionController.setController(componentSC);
+            	String view = actionController.handleRequest(request);
+            	if(view == null){
+            		destination = "/admin/jsp/errorpageMain.jsp";
+            	}
+            	else if(view.startsWith("redirect:")){
+            		//attention, risque de récursivité infinie non traité
+            		return getDestination(view.substring("redirect:".length()), componentSC, request);
+            	}
+            	else{
+            		destination = "/mytests/jsp/" + view;
+            	}
             } else {
                 destination = "/admin/jsp/errorpageMain.jsp";
             }
@@ -99,13 +117,7 @@ public class MyTestsRequestRouter extends ComponentRequestRouter {
             destination = "/admin/jsp/errorpageMain.jsp";
         }
 
-        UserDetail userDetail = componentSC.getUserDetail();
-        String[] userRoles = componentSC.getUserRoles();
-        request.setAttribute("userDetail", userDetail);
-        request.setAttribute("userRoles", userRoles);
         request.setAttribute("action", function);
-
-        request.setAttribute("myContacts", MyTestsService.getInstance().getMyContacts());
 
         SilverTrace.info("mytests", "MyTestsRequestRouter.getDestination()",
                 "root.MSG_GEN_PARAM_VALUE", "Destination=" + destination);

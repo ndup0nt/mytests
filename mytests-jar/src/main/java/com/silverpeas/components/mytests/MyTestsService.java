@@ -19,17 +19,20 @@ public class MyTestsService {
     public static MyTestsService getInstance() {
         return SingletonLoader._instance;
     }
+    
+    private final List<Contact> contacts = new ArrayList<Contact>();
 
     private MyTestsService() {
+    	contacts.add(new Contact("Nicolas","Dupont","R&D"));
+    	contacts.add(new Contact("Ludovic","Bertin","R&D"));
+    	contacts.add(new Contact("Patrick","Schambel","Direction"));
     }
     
-    private String toto;
-
     public List<Contact> getMyContacts(){
-        List<Contact> res = new ArrayList<Contact>();
-        res.add(new Contact("Nicolas","Dupont","R&D"));
-        res.add(new Contact("Ludovic","Bertin","R&D"));
-        res.add(new Contact("Patrick","Schambel","Direction"));
-        return res;
+        return contacts;
+    }
+    
+    public void addContact(Contact contact){
+    	contacts.add(contact);
     }
 }
