@@ -30,8 +30,8 @@
     <parent>
         <groupId>com.silverpeas</groupId>
         <artifactId>components</artifactId>
-<!--         <version>5.9-SNAPSHOT</version> -->
-        <version>5.8</version>
+        <version>5.9-SNAPSHOT</version>
+        <!--         <version>5.8</version> -->
     </parent>
 
     <groupId>com.silverpeas.components</groupId>
@@ -52,7 +52,7 @@
                 <artifactId>mytests-config</artifactId>
                 <version>${project.version}</version>
                 <classifier>configuration</classifier>
-<!--                 <type>jar</type> -->
+                <!--                 <type>jar</type> -->
             </dependency>
             <dependency>
                 <groupId>com.silverpeas.components.mytests</groupId>

@@ -23,27 +23,21 @@
  */
 package com.silverpeas.components.mytests.servlets;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.silverpeas.components.mytests.control.ActionControllerSupport;
-import com.silverpeas.components.mytests.control.CreateContactController;
-import com.silverpeas.components.mytests.control.MyContactsController;
-import com.silverpeas.components.mytests.control.MyTestsMainController;
-import com.silverpeas.components.mytests.control.MyTestsSessionController;
-import com.silverpeas.components.mytests.control.SaveContactController;
+import com.silverpeas.components.mytests.control.*;
 import com.stratelia.silverpeas.peasCore.ComponentContext;
 import com.stratelia.silverpeas.peasCore.ComponentSessionController;
 import com.stratelia.silverpeas.peasCore.MainSessionController;
 import com.stratelia.silverpeas.peasCore.servlets.ComponentRequestRouter;
 import com.stratelia.silverpeas.silvertrace.SilverTrace;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MyTestsRequestRouter extends ComponentRequestRouter {
-	private static final long serialVersionUID = 2306409242623119934L;
-	
-	private final Map<String, ActionControllerSupport> viewMappings = new HashMap<String, ActionControllerSupport>();
+    private static final long serialVersionUID = 2306409242623119934L;
+
+    private final Map<String, ActionControllerSupport> viewMappings = new HashMap<String, ActionControllerSupport>();
 
     public MyTestsRequestRouter() {
         super();
@@ -96,19 +90,17 @@ public class MyTestsRequestRouter extends ComponentRequestRouter {
                 + " Function=" + function);
         try {
             if (viewMappings.containsKey(function)) {
-            	ActionControllerSupport actionController = viewMappings.get(function);
-            	actionController.setController(componentSC);
-            	String view = actionController.handleRequest(request);
-            	if(view == null){
-            		destination = "/admin/jsp/errorpageMain.jsp";
-            	}
-            	else if(view.startsWith("redirect:")){
-            		//attention, risque de récursivité infinie non traité
-            		return getDestination(view.substring("redirect:".length()), componentSC, request);
-            	}
-            	else{
-            		destination = "/mytests/jsp/" + view;
-            	}
+                ActionControllerSupport actionController = viewMappings.get(function);
+                actionController.setSessionController(componentSC);
+                String view = actionController.handleRequest(request);
+                if (view == null) {
+                    destination = "/admin/jsp/errorpageMain.jsp";
+                } else if (view.startsWith("redirect:")) {
+                    //FIXME attention, risque de récursivité infinie non traité
+                    return getDestination(view.substring("redirect:".length()), componentSC, request);
+                } else {
+                    destination = "/mytests/jsp/" + view;
+                }
             } else {
                 destination = "/admin/jsp/errorpageMain.jsp";
             }

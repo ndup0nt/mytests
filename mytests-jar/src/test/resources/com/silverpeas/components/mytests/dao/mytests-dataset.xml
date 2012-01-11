@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <sc_mytests_contact pubId="1" lastName="Simpson" firstName="Bart"
+                        department="Elementary" componentId="1"/>
+    <sc_mytests_contact pubId="2" lastName="Simpson" firstName="Lisa"
+                        department="Elementary" componentId="1"/>
+</dataset>
