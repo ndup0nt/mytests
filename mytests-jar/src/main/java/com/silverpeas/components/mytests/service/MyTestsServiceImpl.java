@@ -1,14 +1,16 @@
 package com.silverpeas.components.mytests.service;
 
 
-import com.silverpeas.components.mytests.dao.ContactDAO;
-import com.silverpeas.components.mytests.model.Contact;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import com.silverpeas.components.mytests.dao.ContactDAO;
+import com.silverpeas.components.mytests.model.Contact;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,33 +21,23 @@ import java.util.List;
  */
 @Singleton
 @Named
+@Transactional
 class MyTestsServiceImpl implements MyTestsService {
     @Inject
     private ContactDAO dao;
 
-    private final List<Contact> contacts = new ArrayList<Contact>();
-
-    private MyTestsServiceImpl() {
-        contacts.add(new Contact("Nicolas", "Dupont", "R&D", "1"));
-        contacts.add(new Contact("Ludovic", "Bertin", "R&D", "1"));
-        contacts.add(new Contact("Patrick", "Schambel", "Direction", "1"));
-    }
-
-    /* (non-Javadoc)
-      * @see com.silverpeas.components.mytests.MyTestsService#getMyContacts()
-      */
     @Override
-    public List<Contact> getMyContacts() {
-        //FIXME implémenter
-        dao.findOne(1);
-        return contacts;
+    public List<Contact> getMyContacts(String componentId) {
+        return dao.getAllContacts(componentId);
     }
 
-    /* (non-Javadoc)
-      * @see com.silverpeas.components.mytests.MyTestsService#addContact(com.silverpeas.components.mytests.Contact)
-      */
     @Override
     public void addContact(Contact contact) {
-        contacts.add(contact);
+    	dao.saveAndFlush(contact);
     }
+
+	@Override
+	public Contact findContact(int contactId) {
+		return dao.findOne(contactId);	
+	}
 }

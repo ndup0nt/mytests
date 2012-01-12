@@ -6,7 +6,7 @@ public class CreateContactController extends ActionControllerSupport implements
 		ActionController {
 
 	@Override
-	public String handleRequest(HttpServletRequest request) {
+	public String resolveView(HttpServletRequest request) {
 		return "newContact.jsp";
 	}
 

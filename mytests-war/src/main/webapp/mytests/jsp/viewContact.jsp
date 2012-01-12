@@ -36,39 +36,25 @@
                 var="icons"/>
 <body bgcolor="#ffffff" leftmargin="5" topmargin="5" marginwidth="5"
       marginheight="5">
-<c:set var="browseBarTitle">
-    <fmt:message key="mytests.browseBar.newcontact"/>
-</c:set>
-<view:browseBar path="${browseBarTitle}"/>
+<view:browseBar path="${contact.firstName}"/>
 <view:window>
     <%@ include file="include/tabs.jsp" %>
     <view:frame>
         <view:board>
-            <form id="mytests_createForm" action="SaveContact">
                 <table>
                     <tr>
                         <td class="txtlibform">Nom :</td>
-                        <td><input type="text" id="lastName" name="lastName" value="" size="20" maxlength="20"/></td>
+                        <td>${contact.lastName}</td>
                     </tr>
                     <tr>
                         <td class="txtlibform">Prénom :</td>
-                        <td><input type="text" id="firstName" name="firstName" value="" size="20" maxlength="20"/></td>
+                        <td>${contact.firstName}</td>
                     </tr>
                     <tr>
                         <td class="txtlibform">Service :</td>
-                        <td><input type="text" id="department" name="department" value="" size="20" maxlength="20"/>
-                        </td>
+                        <td>${contact.department}</td>
                     </tr>
                 </table>
-                <view:buttonPane>
-                    <script type="text/javascript">
-                        function mytests_submitForm() {
-                            $("#mytests_createForm").submit();
-                        }
-                    </script>
-                    <view:button label="Sauvegarder" action="javascript:mytests_submitForm();"/>
-                </view:buttonPane>
-            </form>
         </view:board>
     </view:frame>
 </view:window>

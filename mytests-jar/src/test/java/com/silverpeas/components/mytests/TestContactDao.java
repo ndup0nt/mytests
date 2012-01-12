@@ -20,6 +20,7 @@ import java.util.List;
 
 public class TestContactDao {
 
+	private static final String COMPONENT_ID="1";
     private static ContactDAO dao;
     private static ClassPathXmlApplicationContext context;
     private static ReplacementDataSet dataSet;
@@ -61,20 +62,19 @@ public class TestContactDao {
         int id = 1;
         Contact dbContact = dao.findOne(id);
         Assert.assertEquals("Bart", dbContact.getFirstName());
-
-        //FIXME supprimer cette ligne
-        MyTestsServicesLocator.getInstance().getMyTestsService().getMyContacts();
+        
+        MyTestsServicesLocator.getInstance().getMyTestsService().getMyContacts("1");
     }
 
     @Test
     public void testSaveAndFindAllContacts() throws Exception {
-        List<Contact> dbContacts = dao.findAll();
+        List<Contact> dbContacts = dao.getAllContacts(COMPONENT_ID);
         Assert.assertEquals(2, dbContacts.size());
 
-        Contact newContact = new Contact("Nicolas", "Dupont", "R&D", "1");
+        Contact newContact = new Contact("Nicolas", "Dupont", "R&D", COMPONENT_ID);
         dao.saveAndFlush(newContact);
 
-        dbContacts = dao.findAll();
+        dbContacts = dao.getAllContacts(COMPONENT_ID);
         Assert.assertEquals(3, dbContacts.size());
     }
 
@@ -87,12 +87,12 @@ public class TestContactDao {
 
     @Test
     public void testDeleteAndFindAllContacts() throws Exception {
-        List<Contact> dbContacts = dao.findAll();
+        List<Contact> dbContacts = dao.getAllContacts(COMPONENT_ID);
         Assert.assertEquals(2, dbContacts.size());
 
         dao.delete(2);
 
-        dbContacts = dao.findAll();
+        dbContacts = dao.getAllContacts(COMPONENT_ID);
         Assert.assertEquals(1, dbContacts.size());
     }
 
@@ -103,7 +103,7 @@ public class TestContactDao {
         Assert.assertEquals("Bart", dbContact.getFirstName());
 
         dbContact.setFirstName("Homer");
-        dao.save(dbContact);
+        dao.saveAndFlush(dbContact);
 
         dbContact = dao.findOne(id);
         Assert.assertEquals("Homer", dbContact.getFirstName());

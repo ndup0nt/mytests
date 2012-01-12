@@ -13,11 +13,13 @@ public class SaveContactController extends ActionControllerSupport implements
     private static final String SERVICE_PARAM = "department";
 
     @Override
-    public String handleRequest(HttpServletRequest request) {
-        Contact newC = new Contact();
-        newC.setFirstName(request.getParameter(FIRSTNAME_PARAM));
-        newC.setLastName(request.getParameter(NAME_PARAM));
-        newC.setDepartment(request.getParameter(SERVICE_PARAM));
+    public String resolveView(HttpServletRequest request) {
+        Contact newC = new Contact(
+        		request.getParameter(FIRSTNAME_PARAM),
+        		request.getParameter(NAME_PARAM),
+        		request.getParameter(SERVICE_PARAM),
+        		getComponentSessionController().getComponentId()
+        );
         MyTestsServicesLocator.getInstance().getMyTestsService().addContact(newC);
         return "redirect:MyContacts";
     }

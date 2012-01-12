@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sc_mytests_contact")
 public class Contact {
-    @SuppressWarnings("unused") // utilisé uniquement pour la persistance
     @Id
     @Column(name = "pubId", nullable = false)
     @SequenceGenerator(name = "sc_mytests_contact_id_seq", sequenceName = "sc_mytests_contact_id_seq")
@@ -25,12 +24,12 @@ public class Contact {
     private String lastName;
     @Column
     private String department;
+    @SuppressWarnings("unused") // utilisé uniquement pour la persistance
     @Column
     private String componentId;
 
-
-    public Contact() {
-    }
+    @SuppressWarnings("unused") // utilisé uniquement pour la persistance
+    private Contact() {}
 
     public Contact(String firstName, String lastName, String department, String componentId) {
         this.firstName = firstName;
@@ -63,7 +62,7 @@ public class Contact {
         this.department = department;
     }
 
-    public void setComponentId(String componentId) {
-        this.componentId = componentId;
-    }
+	public Integer getId() {
+		return id;
+	}
 }

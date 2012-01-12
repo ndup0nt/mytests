@@ -8,7 +8,7 @@ public class MyTestsMainController extends ActionControllerSupport implements
         ActionController {
 
     @Override
-    public String handleRequest(HttpServletRequest request) {
+    public String resolveView(HttpServletRequest request) {
         UserDetail userDetail = getComponentSessionController().getUserDetail();
         String[] userRoles = getComponentSessionController().getUserRoles();
         request.setAttribute("userDetail", userDetail);

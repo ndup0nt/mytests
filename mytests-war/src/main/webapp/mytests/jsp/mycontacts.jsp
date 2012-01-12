@@ -26,8 +26,7 @@
 <%@ include file="include/check.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.silverpeas.com/tld/viewGenerator"
-	prefix="view"%>
+<%@ taglib uri="http://www.silverpeas.com/tld/viewGenerator" prefix="view"%>
 <html>
 <head>
 <view:looknfeel />
@@ -54,21 +53,21 @@
 	<view:window>
 		<%@ include file="include/tabs.jsp"%>
 		<view:frame>
-			icone : ${createContactIcon}
+			icône : ${createContactIcon}
 			<view:arrayPane title="Liste des contacts personnels"
 				var="myContactsTable">
 				<view:arrayColumn title="Nom" />
 				<view:arrayColumn title="Prénom" />
 				<view:arrayColumn title="Service" />
 				<c:forEach items="${requestScope.myContacts}" var="myContact">
-					<%--<c:url var="displayContact" value="/Rmytests/${componentId}/ViewContact"> --%>
-					<%--<c:param name="contactId" value="${myContact.id}"/> --%>
-					<%--</c:url> --%>
+					<c:url var="viewContactURL" value="ViewContact">
+						<c:param name="contactId" value="${myContact.id}"/>
+					</c:url>
+					<c:set var="col1"><a href="${viewContactURL}">${myContact.lastName}</a></c:set>
 					<view:arrayLine>
-						<c:set var="col1"><a href="toto">${myContact.lastName}</a></c:set>
 						<view:arrayCellText text="${col1}" />
 						<view:arrayCellText text="${myContact.firstName}" />
-						<view:arrayCellText text="${myContact.service}" />
+						<view:arrayCellText text="${myContact.department}" />
 					</view:arrayLine>
 				</c:forEach>
 			</view:arrayPane>

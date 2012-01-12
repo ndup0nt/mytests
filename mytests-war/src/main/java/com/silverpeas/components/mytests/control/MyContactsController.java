@@ -5,14 +5,19 @@ import com.silverpeas.components.mytests.service.MyTestsServicesLocator;
 import javax.servlet.http.HttpServletRequest;
 
 public class MyContactsController extends ActionControllerSupport implements
-        ActionController {
+		ActionController {
 
-    @Override
-    public String handleRequest(HttpServletRequest request) {
-        request.setAttribute("myContacts", MyTestsServicesLocator.getInstance().getMyTestsService().getMyContacts());
-
-        return "mycontacts.jsp";
-    }
-
+	@Override
+	public String resolveView(HttpServletRequest request) {
+		request.setAttribute(
+				"myContacts",
+				MyTestsServicesLocator
+						.getInstance()
+						.getMyTestsService()
+						.getMyContacts(
+								getComponentSessionController()
+										.getComponentId()));
+		return "mycontacts.jsp";
+	}
 
 }
