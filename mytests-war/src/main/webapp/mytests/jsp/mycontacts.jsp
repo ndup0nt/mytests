@@ -53,7 +53,6 @@
 	<view:window>
 		<%@ include file="include/tabs.jsp"%>
 		<view:frame>
-			icône : ${createContactIcon}
 			<view:arrayPane title="Liste des contacts personnels"
 				var="myContactsTable">
 				<view:arrayColumn title="Nom" />

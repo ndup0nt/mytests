@@ -63,7 +63,7 @@ public class TestContactDao {
         Contact dbContact = dao.findOne(id);
         Assert.assertEquals("Bart", dbContact.getFirstName());
         
-        MyTestsServicesLocator.getInstance().getMyTestsService().getMyContacts("1");
+        MyTestsServicesLocator.getInstance().getMyTestsService().getAllContacts("1");
     }
 
     @Test

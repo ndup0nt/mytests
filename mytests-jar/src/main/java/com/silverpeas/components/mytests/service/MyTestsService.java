@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MyTestsService {
 
-    public abstract List<Contact> getMyContacts(String componentId);
+    public abstract List<Contact> getAllContacts(String componentId);
 
     public abstract void addContact(Contact contact);
 

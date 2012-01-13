@@ -14,7 +14,7 @@ public class MyContactsController extends ActionControllerSupport implements
 				MyTestsServicesLocator
 						.getInstance()
 						.getMyTestsService()
-						.getMyContacts(
+						.getAllContacts(
 								getComponentSessionController()
 										.getComponentId()));
 		return "mycontacts.jsp";

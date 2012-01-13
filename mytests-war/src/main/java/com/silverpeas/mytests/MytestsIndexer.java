@@ -21,15 +21,28 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.silverpeas.components.mytests;
+package com.silverpeas.mytests;
 
+import com.silverpeas.components.mytests.model.Contact;
+import com.silverpeas.components.mytests.service.MyTestsServicesLocator;
 import com.stratelia.silverpeas.peasCore.ComponentContext;
 import com.stratelia.silverpeas.peasCore.MainSessionController;
 import com.stratelia.webactiv.applicationIndexer.control.ComponentIndexerInterface;
+import com.stratelia.webactiv.util.indexEngine.model.FullIndexEntry;
 
-public class MyTestsIndexer implements ComponentIndexerInterface {
+
+/**
+ * L'indexer doit être com.silverpeas.<moduleid>.<Moduleid>Indexer (attention à la casse)
+ *
+ */
+public class MytestsIndexer implements ComponentIndexerInterface {
 
   @Override
   public void index(MainSessionController mainSessionCtrl, ComponentContext context) throws Exception {
+	  for(Contact c : MyTestsServicesLocator.getInstance().getMyTestsService().getAllContacts(context.getCurrentComponentId())){
+		  FullIndexEntry entry = new FullIndexEntry(context.getCurrentComponentId(), "Contact", c.getId().toString());
+		  entry.setTitle(c.getFirstName()+" "+c.getLastName());
+		  // ...
+	  }
   }
 }

@@ -11,9 +11,6 @@ import com.silverpeas.components.mytests.model.Contact;
 
 public interface ContactDAO extends JpaRepository<Contact, Integer> {
 
-//	@Query("from Contact c WHERE c.id = :myId")
-//	public Contact getContact(@Param("myId") int id);
-//
 	@Query("from Contact c WHERE c.componentId = :myId")
 	public List<Contact> getAllContacts(@Param("myId") String componentId);
 

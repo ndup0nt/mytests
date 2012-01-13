@@ -21,19 +21,20 @@ import com.silverpeas.components.mytests.model.Contact;
  */
 @Singleton
 @Named
-@Transactional
 class MyTestsServiceImpl implements MyTestsService {
     @Inject
     private ContactDAO dao;
 
     @Override
-    public List<Contact> getMyContacts(String componentId) {
+    public List<Contact> getAllContacts(String componentId) {
         return dao.getAllContacts(componentId);
     }
 
     @Override
+    @Transactional
     public void addContact(Contact contact) {
     	dao.saveAndFlush(contact);
+    	//TODO indexation. Bien le faire à la fin (= fin de la transaction)
     }
 
 	@Override

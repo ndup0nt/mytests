@@ -97,14 +97,14 @@ public class MyTestsRequestRouter extends
 	// TODO traitement à reporter dans la classe mère
 	public String getDestination(String function,
 			MyTestsSessionController componentSC, HttpServletRequest request) {
-		SilverTrace.info("mytests", "MyTestsRequestRouter.getDestination()",
+		SilverTrace.info(componentSC.getComponentName(), "ComponentRequestRouter.getDestination()",
 				"root.MSG_GEN_PARAM_VALUE", "User=" + componentSC.getUserId()
 						+ " Function=" + function);
 		try {
 			String destination = getDestination(function, componentSC, request,
 					false);
-			SilverTrace.info("mytests",
-					"MyTestsRequestRouter.getDestination()",
+			SilverTrace.info(componentSC.getComponentName(),
+					"ComponentRequestRouter.getDestination()",
 					"root.MSG_GEN_PARAM_VALUE", "Destination=" + destination);
 			return destination;
 		} catch (Throwable t) {
@@ -117,8 +117,8 @@ public class MyTestsRequestRouter extends
 	protected String getDestination(String function,
 			MyTestsSessionController componentSC, HttpServletRequest request,
 			boolean isRedirect) throws PeasCoreException {
-		if (viewMappings.containsKey(function)) {
-			ActionControllerSupport actionController = viewMappings
+		if (getViewMappings().containsKey(function)) {
+			ActionControllerSupport actionController = getViewMappings()
 					.get(function);		
 			String view = resolveView(actionController, componentSC, request,
 					isRedirect);
@@ -128,8 +128,8 @@ public class MyTestsRequestRouter extends
 
 		// FIXME gestion de l'i18n du message d'erreur
 		throw new PeasCoreException(
-				"MyTestsRequestRouter.getDestination()",
-				SilverpeasRuntimeException.ERROR, "Function " + function
+				"ComponentRequestRouter.getDestination()",
+				SilverpeasRuntimeException.ERROR, "Action " + function
 						+ " doesn't match any controller");
 
 	}
@@ -144,17 +144,16 @@ public class MyTestsRequestRouter extends
 		if (view == null) {
 			// FIXME gestion de l'i18n du message d'erreur
 			throw new PeasCoreException(
-					"MyTestsRequestRouter.getDestination()",
+					"ComponentRequestRouter.getDestination()",
 					SilverpeasRuntimeException.ERROR, "Controller "
 							+ actionController.getClass().getName()
 							+ " can't resolve view");
 		}
-		//FIXME: remplacer par une adresse complète
 		if (view.startsWith("redirect:")) {
 			if (isRedirect) {
 				// FIXME gestion de l'i18n du message d'erreur
 				throw new PeasCoreException(
-						"MyTestsRequestRouter.getDestination()",
+						"ComponentRequestRouter.getDestination()",
 						SilverpeasRuntimeException.ERROR,
 						"Circular redirection");
 			}
@@ -165,6 +164,11 @@ public class MyTestsRequestRouter extends
 		return "/"+componentSC.getComponentName()+"/jsp/" + view;
 
 
+	}
+
+	// TODO à reporter dans la classe mère sous forme de méthode abstraite
+	public Map<String, ActionControllerSupport> getViewMappings() {
+		return viewMappings;
 	}
 
 }
